@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct ContentView: View {
+    @State var removed = false
     @State var sheet = false
     @State var spent = false
     @State var newBill = false
     @State var newBillSubmitted = false
+    @State var doesntNeedUpdate: Bool
+    @State var alert = false
     
     func budgetColor(mLeft: Double)-> Color{
         let phaseThree = (appStorage().budget / 2)
@@ -19,34 +23,113 @@ struct ContentView: View {
         let phaseOne = (appStorage().budget / 10)
         
         switch mLeft{
-        case 0...phaseOne:
+            
+        case let x where x < 1:
             return Color.red
-        case phaseOne...phaseTwo:
+        case 1...phaseOne:
             return Color.orange
+        case phaseOne...phaseTwo:
+            return Color.yellow
         case phaseTwo...phaseThree:
             return Color.yellow
         default:
             return Color.green
         }
     }
+    var monthFromNow = false
+    var notYet = false
     
     var body: some View {
+        let day = UserDefaults.standard.object(forKey: "day")
         NavigationView{
             VStack {
-                Text("My Bills")
+                
+                if let data = day{
+                    Text("month reset: \((data as! Date).formatted(date: .complete, time: .omitted))")
+                }else{
+                    ProgressView()
+                        .onAppear{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                                doesntNeedUpdate = true
+                            }
+                            //Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+                        }
+                }
+                Text("Bills Paid This Month")
+
                 ScrollView{
-                    
-                    ForEach(UserDefaultsManager().bills){ bill in
+                    ForEach(Array(UserDefaultsManager().bills.enumerated()), id: \.element.id){ index, bill in
                         if UserDefaultsManager().bills.isEmpty{
                             Text("Hit the plus to add bills")
                                 .foregroundColor(.green)
                         }else{
-                            Text("\(bill.name)")
-                                .foregroundColor(.green)
+                            VStack{
+                                
+                                HStack{
+                                    Button{
+                                        alert = true
+                                    }label:{
+                                        Image(systemName: "trash.circle.fill")
+                                            .symbolRenderingMode(.palette)
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .padding([.leading, .top], 15)
+                                            .foregroundStyle(.red, .black)
+                                            .fontWeight(.bold)
+                                    }.alert("Alert", isPresented: $alert){
+                                        Button(role: .confirmation){
+                                            UserDefaultsManager().bills.remove(at: index)
+                                            removed = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                                                removed = false
+                                            }
+                                            
+                                            appStorage().mSpent -= bill.amount
+                                            
+                                            alert = false
+                                        }label:{
+                                            Text("Confirm")
+                                        }
+                                        
+                                        Button(role: .cancel){
+                                            alert = false
+                                        }label:{
+                                            Text("Cancel")
+                                        }
+                                    }
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text(bill.name)
+                                        .font(.title)
+                                        .fontWeight(.black)
+                                    Text("- $\(bill.amount.formatted(.number))")
+                                        .font(.title3)
+                                        
+                                }.padding(.bottom, 10)
+                                
+                                if bill.description != ""{
+                                    Text(bill.description!)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.bottom, 20)
+                                }
+
+                                
+                                Text("\(bill.time.formatted(date: .complete, time: .shortened))")
+                                    .font(.footnote)
+                                    .foregroundColor(.black)
+                                    
+ 
+                            }.frame(width: 300)
+                            .background{
+                                RoundedRectangle(cornerRadius: 15)
+                                    .padding(.bottom, -20)
+                                    .foregroundColor(Color.gray)
+                                    
+                            }.padding(.bottom, 50)
                         }
                     }
-                    
-                    
                 }.scrollIndicators(.hidden)
             }.sheet(isPresented: $sheet){
                 HStack{
@@ -78,6 +161,31 @@ struct ContentView: View {
                         Button{ newBill = true }label:{
                             Text("Add a new Bill")
                         }
+                        ///
+                        Button{
+                            newBillSubmitted = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                                newBillSubmitted = false
+                            }
+                            UserDefaultsManager().bills.removeAll()
+                            UserDefaults.standard.removeObject(forKey: "bills")
+                        }label:{
+                            Text("Reset Bills")
+                        }
+                        Button{
+                            newBillSubmitted = true
+                            
+                            appStorage().mSpent = 0.0
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                                newBillSubmitted = false
+                            }
+                            
+                        }label:{
+                            Text("Reset Remianing")
+                        }
+                        
+                        
+                        
                         
                     }label:{
                         Image(systemName: "plus")
@@ -116,12 +224,19 @@ struct ContentView: View {
             if newBillSubmitted{
                 Text("")
             }
+            if removed{
+                Text("")
+            }
+            if doesntNeedUpdate{
+                Text("")
+            }
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(doesntNeedUpdate: true)
     }
 }
+

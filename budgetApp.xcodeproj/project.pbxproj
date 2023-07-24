@@ -10,6 +10,7 @@
 		F95591B62A695CFE00BCE289 /* appStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B52A695CFE00BCE289 /* appStorage.swift */; };
 		F95591B82A69862E00BCE289 /* billsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B72A69862E00BCE289 /* billsVM.swift */; };
 		F95591BA2A6987CA00BCE289 /* billsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B92A6987CA00BCE289 /* billsView.swift */; };
+		F95591BC2A6AB5FB00BCE289 /* onboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591BB2A6AB5FB00BCE289 /* onboardingView.swift */; };
 		F962F43E2A672852002ED871 /* budgetAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962F43D2A672852002ED871 /* budgetAppApp.swift */; };
 		F962F4402A672852002ED871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962F43F2A672852002ED871 /* ContentView.swift */; };
 		F962F4422A672853002ED871 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F962F4412A672853002ED871 /* Assets.xcassets */; };
@@ -17,9 +18,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F91079892A6AD7AC008ADBAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F95591B52A695CFE00BCE289 /* appStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appStorage.swift; sourceTree = "<group>"; };
 		F95591B72A69862E00BCE289 /* billsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billsVM.swift; sourceTree = "<group>"; };
 		F95591B92A6987CA00BCE289 /* billsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billsView.swift; sourceTree = "<group>"; };
+		F95591BB2A6AB5FB00BCE289 /* onboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onboardingView.swift; sourceTree = "<group>"; };
 		F962F43A2A672852002ED871 /* budgetApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = budgetApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F962F43D2A672852002ED871 /* budgetAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = budgetAppApp.swift; sourceTree = "<group>"; };
 		F962F43F2A672852002ED871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,7 +61,9 @@
 		F962F43C2A672852002ED871 /* budgetApp */ = {
 			isa = PBXGroup;
 			children = (
+				F91079892A6AD7AC008ADBAF /* Info.plist */,
 				F962F43D2A672852002ED871 /* budgetAppApp.swift */,
+				F95591BB2A6AB5FB00BCE289 /* onboardingView.swift */,
 				F962F43F2A672852002ED871 /* ContentView.swift */,
 				F95591B52A695CFE00BCE289 /* appStorage.swift */,
 				F95591B72A69862E00BCE289 /* billsVM.swift */,
@@ -151,6 +156,7 @@
 				F95591B82A69862E00BCE289 /* billsVM.swift in Sources */,
 				F962F4402A672852002ED871 /* ContentView.swift in Sources */,
 				F95591BA2A6987CA00BCE289 /* billsView.swift in Sources */,
+				F95591BC2A6AB5FB00BCE289 /* onboardingView.swift in Sources */,
 				F95591B62A695CFE00BCE289 /* appStorage.swift in Sources */,
 				F962F43E2A672852002ED871 /* budgetAppApp.swift in Sources */,
 			);
@@ -281,6 +287,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = budgetApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -319,6 +327,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = budgetApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

@@ -12,12 +12,12 @@ struct Bills: Identifiable, Codable{
     var name: String
     var amount: Double
     var description: String?
+    var time: Date
 }
 
 class UserDefaultsManager: ObservableObject {
     @Published var bills: [Bills] {
         didSet {
-            // Convert the array of Bills to Data before saving to UserDefaults
             if let encodedData = try? JSONEncoder().encode(bills) {
                 UserDefaults.standard.set(encodedData, forKey: "bills")
             }

@@ -12,6 +12,7 @@ struct billsView: View {
     @State var billName = ""
     @State var billAmount = 0.0
     @State var billDescr = ""
+    @State var date = Date.now
     @FocusState var focus
     @ObservedObject var userDefaultsManager = UserDefaultsManager()
     
@@ -54,14 +55,12 @@ struct billsView: View {
             }
             
             Button{
-                let submitBill = Bills(name: billName, amount: billAmount, description: billDescr)
-                
+                let submitBill = Bills(name: billName, amount: billAmount, description: billDescr, time: date)
                 userDefaultsManager.bills.append(submitBill)
-                //UserDefaults.standard.set(userDefaults().bills, forKey: "bills")
+
+                appStorage().mSpent += billAmount
                 
-                print(submitBill)
-                print(userDefaultsManager.bills)
-                
+                dismiss()
                 
             }label:{
                 Text("submit")
