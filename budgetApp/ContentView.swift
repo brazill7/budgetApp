@@ -16,8 +16,12 @@ struct ContentView: View {
     @State var newBillSubmitted = false
     @State var doesntNeedUpdate: Bool
     @State var alert = false
+    @State var monthResetSheet = false
     
-    func budgetColor(mLeft: Double)-> Color{
+    var monthFromNow = false
+    var notYet = false
+    
+    func budgetColor(mLeft: Double) -> Color {
         let phaseThree = (appStorage().budget / 2)
         let phaseTwo = (appStorage().budget / 5)
         let phaseOne = (appStorage().budget / 10)
@@ -36,98 +40,101 @@ struct ContentView: View {
             return Color.green
         }
     }
-    var monthFromNow = false
-    var notYet = false
     
     var body: some View {
         let day = UserDefaults.standard.object(forKey: "day")
-        NavigationView{
+        NavigationView {
             VStack {
-                
-                if let data = day{
-                    Text("month reset: \((data as! Date).formatted(date: .complete, time: .omitted))")
-                }else{
-                    ProgressView()
-                        .onAppear{
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-                                doesntNeedUpdate = true
-                            }
-                            //Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+                Group{
+                    if let data = day {
+                        HStack{
+                            Text("Month Reset: \((data as! Date).formatted(date: .complete, time: .omitted)) at 12PM")
                         }
+                    } else {
+                        ProgressView()
+                            
+                    }
+                }.onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        doesntNeedUpdate = true
+                    }
                 }
-                Text("Bills Paid This Month")
 
-                ScrollView{
-                    ForEach(Array(UserDefaultsManager().bills.enumerated()), id: \.element.id){ index, bill in
-                        if UserDefaultsManager().bills.isEmpty{
-                            Text("Hit the plus to add bills")
-                                .foregroundColor(.green)
-                        }else{
-                            VStack{
-                                
-                                HStack{
-                                    Button{
-                                        alert = true
-                                    }label:{
-                                        Image(systemName: "trash.circle.fill")
-                                            .symbolRenderingMode(.palette)
-                                            .resizable()
-                                            .frame(width: 30, height: 30)
-                                            .padding([.leading, .top], 15)
-                                            .foregroundStyle(.red, .black)
-                                            .fontWeight(.bold)
-                                    }.alert("Alert", isPresented: $alert){
-                                        Button(role: .confirmation){
-                                            UserDefaultsManager().bills.remove(at: index)
-                                            removed = true
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-                                                removed = false
+                ScrollView {
+                    if UserDefaultsManager().bills.isEmpty {
+                        Text("Hit the plus button to add bills")
+                            .fontWeight(.bold)
+                    } else {
+                        VStack{
+                            Text("Bills paid this month")
+                            ForEach(Array(UserDefaultsManager().bills.enumerated()), id: \.element.id) { index, bill in
+                                VStack {
+                                    HStack {
+                                        Button {
+                                            alert = true
+                                        } label: {
+                                            Image(systemName: "trash.circle.fill")
+                                                .symbolRenderingMode(.palette)
+                                                .resizable()
+                                                .frame(width: 30, height: 30)
+                                                .padding([.leading, .top], 15)
+                                                .foregroundStyle(.red, .black)
+                                                .fontWeight(.bold)
+                                        }
+                                        .alert("Alert", isPresented: $alert) {
+                                            Button {
+                                                UserDefaultsManager().bills.remove(at: index)
+                                                removed = true
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                    removed = false
+                                                }
+                                                appStorage().mSpent -= bill.amount
+                                                alert = false
+                                            } label: {
+                                                Text("Confirm")
                                             }
-                                            
-                                            appStorage().mSpent -= bill.amount
-                                            
-                                            alert = false
-                                        }label:{
-                                            Text("Confirm")
-                                        }
-                                        
-                                        Button(role: .cancel){
-                                            alert = false
-                                        }label:{
-                                            Text("Cancel")
-                                        }
-                                    }
-                                    Spacer()
-                                }
-                                
-                                HStack{
-                                    Text(bill.name)
-                                        .font(.title)
-                                        .fontWeight(.black)
-                                    Text("- $\(bill.amount.formatted(.number))")
-                                        .font(.title3)
-                                        
-                                }.padding(.bottom, 10)
-                                
-                                if bill.description != ""{
-                                    Text(bill.description!)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.bottom, 20)
-                                }
 
-                                
-                                Text("\(bill.time.formatted(date: .complete, time: .shortened))")
-                                    .font(.footnote)
-                                    .foregroundColor(.black)
-                                    
- 
-                            }.frame(width: 300)
-                            .background{
-                                RoundedRectangle(cornerRadius: 15)
-                                    .padding(.bottom, -20)
-                                    .foregroundColor(Color.gray)
-                                    
-                            }.padding(.bottom, 50)
+                                            Button(role: .cancel) {
+                                                alert = false
+                                            } label: {
+                                                Text("Cancel")
+                                            }
+                                        }
+                                        Spacer()
+                                    }
+
+                                    HStack {
+                                        Text(bill.name)
+                                            .font(.title)
+                                            .fontWeight(.black)
+                                        Text("- $\(bill.amount.formatted(.number))")
+                                            .font(.title3)
+
+                                    }
+                                    .padding(.bottom, 10)
+
+                                    if bill.description != "" {
+                                        Text(bill.description!)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.bottom, 20)
+                                    }
+
+                                    Text("\(bill.time.formatted(date: .complete, time: .shortened))")
+                                        .font(.footnote)
+                                        .foregroundColor(.black)
+
+
+                                }
+                                .frame(width: 300)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .padding(.bottom, -20)
+                                        .foregroundColor(Color.gray)
+
+                                }
+                                .padding(.bottom, 50)
+
+                            }
                         }
                     }
                 }.scrollIndicators(.hidden)
@@ -142,93 +149,81 @@ struct ContentView: View {
                             sheet = false
                         }
                 }.padding([.leading, .trailing], 20)
-                
+            }.overlay{
                 if sheet{
                     Text("")
                 }
-            }
-            
-            
-            
-            .toolbar{
-                ToolbarItem(placement: .navigationBarTrailing){
-                    Menu{
-                        ///
-                        Button{ sheet = true }label:{
+                if newBillSubmitted{
+                    Text("")
+                }
+                if removed{
+                    Text("")
+                }
+                if doesntNeedUpdate{
+                    Text("")
+                }
+                
+            }.fullScreenCover(isPresented: $newBill){
+                billsView()
+                    .onDisappear{
+                        print("Dis")
+                        newBillSubmitted = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                            newBillSubmitted = false
+                        }
+                    }
+            }.toolbar{
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button { sheet = true } label: {
                             Text("Edit Budget")
                         }
-                        ///
-                        Button{ newBill = true }label:{
+                                       
+                        Button { newBill = true } label: {
                             Text("Add a new Bill")
                         }
-                        ///
-                        Button{
+                        /*Button {
                             newBillSubmitted = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 newBillSubmitted = false
                             }
                             UserDefaultsManager().bills.removeAll()
                             UserDefaults.standard.removeObject(forKey: "bills")
-                        }label:{
+                        } label: {
                             Text("Reset Bills")
                         }
-                        Button{
+                        
+                        Button {
                             newBillSubmitted = true
-                            
                             appStorage().mSpent = 0.0
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 newBillSubmitted = false
                             }
-                            
-                        }label:{
-                            Text("Reset Remianing")
-                        }
+                        } label: {
+                            Text("Reset Remaining")
+                        }*/
                         
-                        
-                        
-                        
-                    }label:{
+                    } label: {
                         Image(systemName: "plus")
                     }
                 }
-                ToolbarItem(placement: .navigationBarLeading){
-                    VStack{
+                ToolbarItem(placement: .navigationBarLeading) {
+                    VStack {
                         Text("Budget")
                         Text("$\(appStorage().budget.formatted(.number))/m")
                             .fontWeight(.bold)
                             .font(.title3)
                     }
                 }
-                ToolbarItem(placement: .principal){
-                    VStack{
+                ToolbarItem(placement: .principal) {
+                    VStack {
                         Text("Remaining")
                         Text("$\((appStorage().budget - appStorage().mSpent).formatted(.number))")
                             .font(.title3)
                             .fontWeight(.bold)
-                            .foregroundColor(spent ?
-                                             budgetColor(mLeft: (appStorage().budget - appStorage().mSpent))
-                                             : budgetColor(mLeft: (appStorage().budget - appStorage().mSpent)))
+                            .foregroundColor(spent ? budgetColor(mLeft: (appStorage().budget - appStorage().mSpent)) : budgetColor(mLeft: (appStorage().budget - appStorage().mSpent)))
                     }
                 }
-            }
-        }.fullScreenCover(isPresented: $newBill){
-            billsView()
-                .onDisappear{
-                    print("Dis")
-                    newBillSubmitted = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-                        newBillSubmitted = false
-                    }
-                }
-        }.overlay{
-            if newBillSubmitted{
-                Text("")
-            }
-            if removed{
-                Text("")
-            }
-            if doesntNeedUpdate{
-                Text("")
             }
         }
     }

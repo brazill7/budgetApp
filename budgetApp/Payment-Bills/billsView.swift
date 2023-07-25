@@ -31,9 +31,6 @@ struct billsView: View {
     
     var body: some View {
         VStack{
-            Button{ dismiss() }label:{
-                Text("dismiss")
-            }
             Text("Add a new bill")
             
             HStack{
@@ -63,8 +60,15 @@ struct billsView: View {
                 dismiss()
                 
             }label:{
-                Text("submit")
-            }.disabled(checkIfDone(name: billName, amount: billAmount))
+                Text("Submit")
+            }.buttonStyle(.borderedProminent)
+            .disabled(checkIfDone(name: billName, amount: billAmount))
+            
+            Button{ dismiss() }label:{
+                Text("Dismiss")
+                    
+            }.buttonStyle(.borderedProminent)
+            .tint(Color.red)
             
         }.padding([.leading, .trailing], 20)
     }

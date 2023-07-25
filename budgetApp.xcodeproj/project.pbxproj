@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F9097FF62A6FF32900479D1B /* monthResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9097FF52A6FF32900479D1B /* monthResetView.swift */; };
 		F95591B62A695CFE00BCE289 /* appStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B52A695CFE00BCE289 /* appStorage.swift */; };
 		F95591B82A69862E00BCE289 /* billsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B72A69862E00BCE289 /* billsVM.swift */; };
 		F95591BA2A6987CA00BCE289 /* billsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B92A6987CA00BCE289 /* billsView.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F9097FF52A6FF32900479D1B /* monthResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monthResetView.swift; sourceTree = "<group>"; };
 		F91079892A6AD7AC008ADBAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F95591B52A695CFE00BCE289 /* appStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appStorage.swift; sourceTree = "<group>"; };
 		F95591B72A69862E00BCE289 /* billsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billsVM.swift; sourceTree = "<group>"; };
@@ -42,6 +44,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F9097FF32A6FF2DF00479D1B /* Payment-Bills */ = {
+			isa = PBXGroup;
+			children = (
+				F95591B72A69862E00BCE289 /* billsVM.swift */,
+				F95591B92A6987CA00BCE289 /* billsView.swift */,
+			);
+			path = "Payment-Bills";
+			sourceTree = "<group>";
+		};
 		F962F4312A672852002ED871 = {
 			isa = PBXGroup;
 			children = (
@@ -66,8 +77,8 @@
 				F95591BB2A6AB5FB00BCE289 /* onboardingView.swift */,
 				F962F43F2A672852002ED871 /* ContentView.swift */,
 				F95591B52A695CFE00BCE289 /* appStorage.swift */,
-				F95591B72A69862E00BCE289 /* billsVM.swift */,
-				F95591B92A6987CA00BCE289 /* billsView.swift */,
+				F9097FF52A6FF32900479D1B /* monthResetView.swift */,
+				F9097FF32A6FF2DF00479D1B /* Payment-Bills */,
 				F962F4412A672853002ED871 /* Assets.xcassets */,
 				F962F4432A672853002ED871 /* budgetApp.entitlements */,
 				F962F4442A672853002ED871 /* Preview Content */,
@@ -153,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9097FF62A6FF32900479D1B /* monthResetView.swift in Sources */,
 				F95591B82A69862E00BCE289 /* billsVM.swift in Sources */,
 				F962F4402A672852002ED871 /* ContentView.swift in Sources */,
 				F95591BA2A6987CA00BCE289 /* billsView.swift in Sources */,

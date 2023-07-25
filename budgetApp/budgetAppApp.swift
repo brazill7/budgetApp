@@ -7,29 +7,29 @@
 
 import SwiftUI
 import Foundation
-import BackgroundTasks
-import UserNotifications
 
 @main
 struct budgetAppApp: App {
     
-   /*)/ func scheduleAppRefresh(){
-        print("this func ran")
-        let today = Calendar.current.startOfDay(for: .now)
-        //let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
-        
-       // let noonComponent = DateComponents(hour: 12)
-        //let noon = Calendar.current.date(byAdding: noonComponent, to: tomorrow)
-        let oneMinute = Calendar.current.date(byAdding: .second, value: 10, to: today)
-        
-        
-        
-        let request = BGAppRefreshTaskRequest(identifier: "month")
-        request.earliestBeginDate = oneMinute
-        //request.earliestBeginDate = noon
-        try? BGTaskScheduler.shared.submit(request)
-        
-    }*/
+    func resetDay()-> Bool{
+        let todaysDate = Date.now
+            
+            //let testDay = Calendar.current.date(byAdding: .day, value: 1097, to: todaysDate)
+            //let testDayComps = DateComponents(year: 2023, month: 7, day: 24, hour: 14, minute: 43)
+            //let testDay = Calendar.current.dateComponents([.hour,.year,.month,.day], from: testDayComps!)
+        let resetDate = UserDefaults.standard.object(forKey: "day") as! Date
+            
+        if (todaysDate >= resetDate){
+            /// Todays date is or is after reset day
+            print("today is after reset day")
+            return true
+            
+        }else{
+            /// Todays date is before reset day
+            print("today is before reset day")
+            return false
+        }
+    }
 
 
     
@@ -39,17 +39,12 @@ struct budgetAppApp: App {
             if appStorage().budget == 0.0{
                 onboardingView()
             }else{
-                ContentView(doesntNeedUpdate: true)
-                    .onAppear{
-                        print("contentview")
-                        //notificationTest()
-                    }
+                if resetDay(){
+                    monthResetView()
+                }else{
+                    ContentView(doesntNeedUpdate: true)
+                }
             }
-        }/*.backgroundTask(.appRefresh("month")){
-            print("got it")
-            scheduleAppRefresh()
-            notificationTest()
-            //await notif()
-        }*/
+        }
     }
 }

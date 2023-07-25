@@ -16,18 +16,17 @@ struct onboardingView: View {
         return Calendar.current.date(byAdding: .month, value: 1, to: selectedDate)!
     }
     func oneMinuteFromNow() -> Date{
-        return Calendar.current.date(byAdding: .month, value: 1, to: selectedDate)!
+        return Calendar.current.date(byAdding: .minute, value: 1, to: selectedDate)!
     }
     
     func monthNotification(){
+        //let dateSet = oneMinuteFromNow()
         let dateSet = Calendar.current.startOfDay(for: selectedDate)
         let content = UNMutableNotificationContent()
         content.title = "Budget App"
         content.subtitle = "Your monthly budget has been reset!"
         content.sound = UNNotificationSound.default
         
-        //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
-
         let nooncomp = DateComponents(hour: 12)
         let noonNotif = Calendar.current.date(byAdding: nooncomp, to: dateSet)
         
@@ -67,9 +66,11 @@ struct onboardingView: View {
                     .multilineTextAlignment(.center)
                     .padding([.leading, .trailing], 20)
                     .font(.footnote)
-                DatePicker("", selection: $selectedDate, in: Date.now...oneMinuteFromNow(), displayedComponents: .date)
+                
+                DatePicker("", selection: $selectedDate, in: Date.now...oneMonthFromSelected(), displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .padding([.leading, .trailing], 20)
+                
                 HStack{
                     Text("Next Reset: ")
                     if selectedDate > Date.now{
@@ -84,8 +85,6 @@ struct onboardingView: View {
                         .onAppear{
                             appStorage().budget = mBudget
                             UserDefaults.standard.set(selectedDate, forKey: "day")
-                            UserDefaults.standard.set(oneMonthFromSelected(), forKey: "oneMonthFromNow")
-                            UserDefaults.standard.set(oneMinuteFromNow(), forKey: "oneMin")
                             
                             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]){ success, error in
                                 if success{
