@@ -81,7 +81,7 @@ struct onboardingView: View {
                 }
                 Spacer()
                 NavigationLink{
-                    ContentView(doesntNeedUpdate: false).navigationBarBackButtonHidden()
+                    ContentView().navigationBarBackButtonHidden()
                         .onAppear{
                             appStorage().budget = mBudget
                             UserDefaults.standard.set(selectedDate, forKey: "day")

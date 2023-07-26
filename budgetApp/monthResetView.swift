@@ -23,7 +23,7 @@ struct monthResetView: View {
                     
                     Spacer()
                     NavigationLink{
-                        ContentView(doesntNeedUpdate: false)
+                        ContentView()
                             .navigationBarBackButtonHidden()
                             .onAppear{
                                 proceed = true

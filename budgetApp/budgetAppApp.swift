@@ -42,7 +42,7 @@ struct budgetAppApp: App {
                 if resetDay(){
                     monthResetView()
                 }else{
-                    ContentView(doesntNeedUpdate: true)
+                    ContentView()
                 }
             }
         }

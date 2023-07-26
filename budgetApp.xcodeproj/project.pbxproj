@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F9097FF62A6FF32900479D1B /* monthResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9097FF52A6FF32900479D1B /* monthResetView.swift */; };
+		F927427E2A70363500945BE8 /* tagsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F927427D2A70363500945BE8 /* tagsVM.swift */; };
+		F92742812A703C7C00945BE8 /* tagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92742802A703C7C00945BE8 /* tagsView.swift */; };
+		F92742832A703C9400945BE8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92742822A703C9400945BE8 /* UserDefaultsManager.swift */; };
 		F95591B62A695CFE00BCE289 /* appStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B52A695CFE00BCE289 /* appStorage.swift */; };
 		F95591B82A69862E00BCE289 /* billsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B72A69862E00BCE289 /* billsVM.swift */; };
 		F95591BA2A6987CA00BCE289 /* billsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B92A6987CA00BCE289 /* billsView.swift */; };
@@ -21,6 +24,9 @@
 /* Begin PBXFileReference section */
 		F9097FF52A6FF32900479D1B /* monthResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monthResetView.swift; sourceTree = "<group>"; };
 		F91079892A6AD7AC008ADBAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F927427D2A70363500945BE8 /* tagsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tagsVM.swift; sourceTree = "<group>"; };
+		F92742802A703C7C00945BE8 /* tagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tagsView.swift; sourceTree = "<group>"; };
+		F92742822A703C9400945BE8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		F95591B52A695CFE00BCE289 /* appStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appStorage.swift; sourceTree = "<group>"; };
 		F95591B72A69862E00BCE289 /* billsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billsVM.swift; sourceTree = "<group>"; };
 		F95591B92A6987CA00BCE289 /* billsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billsView.swift; sourceTree = "<group>"; };
@@ -53,6 +59,15 @@
 			path = "Payment-Bills";
 			sourceTree = "<group>";
 		};
+		F927427F2A70363800945BE8 /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				F927427D2A70363500945BE8 /* tagsVM.swift */,
+				F92742802A703C7C00945BE8 /* tagsView.swift */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
 		F962F4312A672852002ED871 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +93,8 @@
 				F962F43F2A672852002ED871 /* ContentView.swift */,
 				F95591B52A695CFE00BCE289 /* appStorage.swift */,
 				F9097FF52A6FF32900479D1B /* monthResetView.swift */,
+				F92742822A703C9400945BE8 /* UserDefaultsManager.swift */,
+				F927427F2A70363800945BE8 /* Tags */,
 				F9097FF32A6FF2DF00479D1B /* Payment-Bills */,
 				F962F4412A672853002ED871 /* Assets.xcassets */,
 				F962F4432A672853002ED871 /* budgetApp.entitlements */,
@@ -165,11 +182,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9097FF62A6FF32900479D1B /* monthResetView.swift in Sources */,
+				F927427E2A70363500945BE8 /* tagsVM.swift in Sources */,
 				F95591B82A69862E00BCE289 /* billsVM.swift in Sources */,
 				F962F4402A672852002ED871 /* ContentView.swift in Sources */,
 				F95591BA2A6987CA00BCE289 /* billsView.swift in Sources */,
 				F95591BC2A6AB5FB00BCE289 /* onboardingView.swift in Sources */,
+				F92742832A703C9400945BE8 /* UserDefaultsManager.swift in Sources */,
 				F95591B62A695CFE00BCE289 /* appStorage.swift in Sources */,
+				F92742812A703C7C00945BE8 /* tagsView.swift in Sources */,
 				F962F43E2A672852002ED871 /* budgetAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,14 +313,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = budgetApp/budgetApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"budgetApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 6X6KX8WVK5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = budgetApp/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "Family Budgeting";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -309,20 +330,22 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbrazill.budgetApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -333,14 +356,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = budgetApp/budgetApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"budgetApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 6X6KX8WVK5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = budgetApp/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "Family Budgeting";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -349,20 +373,22 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbrazill.budgetApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
