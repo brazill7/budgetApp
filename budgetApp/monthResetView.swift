@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct monthResetView: View {
-    @State var proceed = false
+    //@State var proceed = false
     
     var body: some View {
         NavigationView{
@@ -26,12 +26,12 @@ struct monthResetView: View {
                         ContentView()
                             .navigationBarBackButtonHidden()
                             .onAppear{
-                                proceed = true
+                                //proceed = true
                                 appStorage().mSpent = 0
                                 let oneMonth = Calendar.current.date(byAdding: .month, value: 1, to: Date.now)
                                 
                                 UserDefaults.standard.set(oneMonth, forKey: "day")
-
+                                UserDefaultsManager().bills.removeAll()
                             }
                     }label:{
                         Text("Continue")

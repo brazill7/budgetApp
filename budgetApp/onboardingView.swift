@@ -43,6 +43,18 @@ struct onboardingView: View {
     
     }
     
+    func isBeforeNoonToday()-> Date{
+        let today = Calendar.current.dateComponents([.hour], from: Date.now)
+        
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!
+        
+        if today.hour! >= 12{
+            return tomorrow
+        }else{
+            return Date.now
+        }
+    }
+    
  
     
     var body: some View {
@@ -67,7 +79,7 @@ struct onboardingView: View {
                     .padding([.leading, .trailing], 20)
                     .font(.footnote)
                 
-                DatePicker("", selection: $selectedDate, in: Date.now...oneMonthFromSelected(), displayedComponents: .date)
+                DatePicker("", selection: $selectedDate, in: isBeforeNoonToday()...oneMonthFromSelected(), displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .padding([.leading, .trailing], 20)
                 

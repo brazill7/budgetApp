@@ -14,7 +14,7 @@ struct billsView: View {
     @State var billDescr = ""
     @State var date = Date.now
     @FocusState var focus
-    @ObservedObject var userDefaultsManager = UserDefaultsManager()
+    @ObservedObject var userDefaultsManager: UserTagsWrapper
     
     func checkIfDone(name: String, amount: Double)-> Bool{
         if name == ""{
@@ -76,6 +76,6 @@ struct billsView: View {
 
 struct billsView_Previews: PreviewProvider {
     static var previews: some View {
-        billsView()
+        billsView(userDefaultsManager: UserTagsWrapper())
     }
 }

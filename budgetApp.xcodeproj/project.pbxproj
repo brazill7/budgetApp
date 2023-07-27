@@ -11,6 +11,7 @@
 		F927427E2A70363500945BE8 /* tagsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F927427D2A70363500945BE8 /* tagsVM.swift */; };
 		F92742812A703C7C00945BE8 /* tagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92742802A703C7C00945BE8 /* tagsView.swift */; };
 		F92742832A703C9400945BE8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92742822A703C9400945BE8 /* UserDefaultsManager.swift */; };
+		F92742852A7298AB00945BE8 /* billsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92742842A7298AB00945BE8 /* billsListView.swift */; };
 		F95591B62A695CFE00BCE289 /* appStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B52A695CFE00BCE289 /* appStorage.swift */; };
 		F95591B82A69862E00BCE289 /* billsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B72A69862E00BCE289 /* billsVM.swift */; };
 		F95591BA2A6987CA00BCE289 /* billsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95591B92A6987CA00BCE289 /* billsView.swift */; };
@@ -27,6 +28,7 @@
 		F927427D2A70363500945BE8 /* tagsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tagsVM.swift; sourceTree = "<group>"; };
 		F92742802A703C7C00945BE8 /* tagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tagsView.swift; sourceTree = "<group>"; };
 		F92742822A703C9400945BE8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		F92742842A7298AB00945BE8 /* billsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billsListView.swift; sourceTree = "<group>"; };
 		F95591B52A695CFE00BCE289 /* appStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appStorage.swift; sourceTree = "<group>"; };
 		F95591B72A69862E00BCE289 /* billsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billsVM.swift; sourceTree = "<group>"; };
 		F95591B92A6987CA00BCE289 /* billsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billsView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			children = (
 				F95591B72A69862E00BCE289 /* billsVM.swift */,
 				F95591B92A6987CA00BCE289 /* billsView.swift */,
+				F92742842A7298AB00945BE8 /* billsListView.swift */,
 			);
 			path = "Payment-Bills";
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				F92742832A703C9400945BE8 /* UserDefaultsManager.swift in Sources */,
 				F95591B62A695CFE00BCE289 /* appStorage.swift in Sources */,
 				F92742812A703C7C00945BE8 /* tagsView.swift in Sources */,
+				F92742852A7298AB00945BE8 /* billsListView.swift in Sources */,
 				F962F43E2A672852002ED871 /* budgetAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

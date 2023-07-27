@@ -43,6 +43,14 @@ struct ContentView: View {
             return Color.green
         }
     }
+    
+    func checkIfMore(input: Int, max: Int)-> Int{
+        if input < max{
+            return input
+        }else{
+            return max
+        }
+    }
 
     var body: some View {
         let day = UserDefaults.standard.object(forKey: "day")
@@ -52,7 +60,7 @@ struct ContentView: View {
                 VStack {
                     ForEach(userTagsWrapper.tags, id: \.self) { tag in
                         HStack {
-                            ProgressView(value: Float(tag.mSpent), total: Float(tag.maxAmount)) {
+                            ProgressView(value: Float(checkIfMore(input: tag.mSpent, max: tag.maxAmount)), total: Float(tag.maxAmount)) {
                                 Text("\(tag.name) - ")
                                 } currentValueLabel: {
                                     Text("Amount Remaining - $\(tag.mSpent) / $\(tag.maxAmount)")
@@ -81,72 +89,7 @@ struct ContentView: View {
                         Text("Hit the plus button to add bills")
                             .fontWeight(.bold)
                     } else {
-                        VStack {
-                            Text("Bills paid this month")
-                            ForEach(Array(UserDefaultsManager().bills.enumerated()), id: \.element.id) { index, bill in
-                                VStack {
-                                    HStack {
-                                        Button {
-                                            alert = true
-                                        } label: {
-                                            Image(systemName: "trash.circle.fill")
-                                                .symbolRenderingMode(.palette)
-                                                .resizable()
-                                                .frame(width: 30, height: 30)
-                                                .padding([.leading, .top], 15)
-                                                .foregroundStyle(.red, .black)
-                                                .fontWeight(.bold)
-                                        }
-                                        .alert("Remove this bill?", isPresented: $alert) {
-                                            Button {
-                                                UserDefaultsManager().bills.remove(at: index)
-                                                removed = true
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                                    removed = false
-                                                }
-                                                appStorage().mSpent -= bill.amount
-                                                alert = false
-                                            } label: {
-                                                Text("Confirm")
-                                            }
-
-                                            Button(role: .destructive) {
-                                                alert = false
-                                            } label: {
-                                                Text("Cancel")
-                                            }
-                                        }
-                                        Spacer()
-                                    }
-
-                                    HStack {
-                                        Text(bill.name)
-                                            .font(.title)
-                                            .fontWeight(.black)
-                                        Text("- $\(bill.amount.formatted(.number))")
-                                            .font(.title3)
-                                    }
-                                    .padding(.bottom, 10)
-
-                                    if bill.description != "" {
-                                        Text(bill.description!)
-                                            .multilineTextAlignment(.center)
-                                            .padding(.bottom, 20)
-                                    }
-
-                                    Text("\(bill.time.formatted(date: .complete, time: .shortened))")
-                                        .font(.footnote)
-                                        .foregroundColor(.black)
-                                }
-                                .frame(width: 300)
-                                .background {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .padding(.bottom, -20)
-                                        .foregroundColor(Color.gray)
-                                }
-                                .padding(.bottom, 50)
-                            }
-                        }
+                        billsListView(userDefaultsManager: userTagsWrapper, removed: true)
                     }
                 }.scrollIndicators(.hidden)
             }.overlay {
@@ -174,7 +117,7 @@ struct ContentView: View {
                         }
                 }.padding([.leading, .trailing], 20)
             }.fullScreenCover(isPresented: $newBill) {
-                billsView()
+                billsView(userDefaultsManager: userTagsWrapper)
                     .onDisappear {
                         update = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
