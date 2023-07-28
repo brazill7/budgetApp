@@ -44,6 +44,19 @@ struct ContentView: View {
         }
     }
     
+    func daysLeftColor(num: Int)-> Color{
+        switch num{
+        case 0...5:
+            return Color.green
+        case 6...12:
+            return Color.blue
+        case 13...20:
+            return Color.orange
+        default:
+            return Color.red
+        }
+    }
+    
     func checkIfMore(input: Int, max: Int)-> Int{
         if input < max{
             return input
@@ -72,8 +85,14 @@ struct ContentView: View {
                 // Month Reset
                 Group {
                     if let data = day {
+                        let monthreset = (data as! Date)
+                        let daysLeft = Calendar.current.dateComponents([.day], from: Date.now, to: monthreset)
+                        
                         HStack {
-                            Text("Month Reset: \((data as! Date).formatted(date: .complete, time: .omitted)) at 12PM")
+                            Text("\(daysLeft.day!)")
+                                .foregroundColor(daysLeftColor(num: daysLeft.day!))
+                                .fontWeight(.bold)
+                            Text("Days Left until reset")
                         }
                     } else {
                         ProgressView()
@@ -144,7 +163,7 @@ struct ContentView: View {
                         Button { newTag = true } label: {
                             Text("Add a new Tag")
                         }
-                        Button {
+                        /*Button {
                             update = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 update = false
@@ -154,7 +173,7 @@ struct ContentView: View {
                         } label: {
                             Text("Reset tags")
                         }
-                        /*
+                        
                         Button {
                             newBillSubmitted = true
                             appStorage().mSpent = 0.0
@@ -201,7 +220,7 @@ struct ContentView: View {
 class UserTagsWrapper: ObservableObject {
     @Published var tags: [Tags] {
         didSet {
-            UserDefaultsManager().tags = tags // Save changes to UserDefaults
+            UserDefaultsManager().tags = tags
         }
     }
     @Published var bills: [Bills]{

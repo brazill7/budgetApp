@@ -17,6 +17,8 @@ struct tagsView: View {
     @State var tagNamesArr = Array(repeating: "", count: 10)
     @State var tagColorsArr = Array(repeating: Color.white, count: 10)
     @State var tagBudgetArr = Array(repeating: 0, count: 10)
+    @State var couldentSubmit = false
+    @State var sameName = ""
     
     func checkIfCompleted()-> Bool{
         var j = 0
@@ -96,23 +98,56 @@ struct tagsView: View {
                                           color: CodableColor(tagColorsArr[i]),
                                           maxAmount: tagBudgetArr[i],
                                           mSpent: 0)
+                        
+                        
+                        if userDefaultsManager.tags.contains(where: {$0.name.lowercased() == newTag.name.lowercased()}){
+                            print("error")
+                            sameName = newTag.name
+                            couldentSubmit = true
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+                                couldentSubmit = false
+                            }
+                        }else{
                             userDefaultsManager.tags.append(newTag)
                             total += tagBudgetArr[i]
                         
                             print("total \(total)")
                             appStorage().tagBudgetTotal = total
                         }
+                        
+                        }
                     
-                    if let encodedTags = try? JSONEncoder().encode(userDefaultsManager.tags) {
-                        UserDefaults.standard.set(encodedTags, forKey: "tags")
+                    if !couldentSubmit{
+
+                        if let encodedTags = try? JSONEncoder().encode(userDefaultsManager.tags) {
+                            UserDefaults.standard.set(encodedTags, forKey: "tags")
+                        }
+                        
+                        dismiss()
                     }
-                    
-                    dismiss()
  
                 }label:{
                     Text("Submit")
                 }.buttonStyle(.borderedProminent).disabled(!checkIfCompleted())
+                
+                Button{
+                    dismiss()
+                }label:{
+                    Text("Dismiss")
+                }.buttonStyle(.borderedProminent)
 
+            }.overlay{
+                if couldentSubmit{
+                    Text("Could not submit, already another tag under the name of \(sameName)")
+                        .multilineTextAlignment(.center)
+                        .padding(.all, -10)
+                        .background{
+                            RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(.gray)
+                                .padding(.all, -15)
+                        }
+                }
             }
         }
     }
